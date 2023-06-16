@@ -1,0 +1,129 @@
+pipeline {
+    agent any
+
+
+    parameters{
+        string(name: 'tag', defaultValue: 'main', description: 'Image Tag')
+        // booleanParam(name: 'buildAgent', defaultValue: false, description: 'Build B2B Agents')
+        // booleanParam(name: 'buildAgentWatcher', defaultValue: false, description: 'Build B2B Agent Watcher')
+        booleanParam(name: 'cleanBuild', defaultValue: false, description: 'Clean Build')
+        booleanParam(name: 'pushToS3', defaultValue: false, description: 'Push to S3')
+        booleanParam(name: 'deploy', defaultValue: true, description: 'Deploy in machine')
+        booleanParam(name: 'dockerHub', defaultValue: false, description: 'Push to Docker Hub')
+    }
+    stages {
+        stage('Create Tag') {
+            steps {
+                sh "chmod 777 ./scripts/create_tag.sh"
+                sh "./scripts/create_tag.sh"
+            }
+        }
+        stage('SCM') {
+            steps {
+                git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/dn-configuration-manager.git'
+            }
+        }
+        stage('SCM Process Flow Base Image') {
+            steps {
+                dir('dn-flow-base') {
+                  git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/dn-flow-base.git'
+                }
+            }
+        }
+        // stage('SCM B2B Base Image') {
+        //     steps {
+        //         dir('ds-b2b-base') {
+        //           git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/ds-b2b-base.git'
+        //         }
+        //     }
+        // }
+        // stage('SCM FaaS Base Image') {
+        //     steps {
+        //         dir('ds-faas') {
+        //           git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/ds-faas.git'
+        //         }
+        //     }
+        // }
+        // stage('SCM Agent') {
+        //     when {
+        //         expression {
+        //             params.buildAgent  == true
+        //         }
+        //     }
+        //     steps {
+        //         dir('ds-agent') {
+        //           git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/ds-agent.git'
+        //         }
+        //     }
+        // }
+        // stage('SCM Agent Watcher') {
+        //     when {
+        //         expression {
+        //             params.buildAgentWatcher  == true
+        //         }
+        //     }
+        //     steps {
+        //         dir('ds-agent-watcher') {
+        //           git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/ds-agent-watcher.git'
+        //         }
+        //     }
+        // }
+        stage('Build') {
+            steps {
+                sh "chmod 777 ./scripts/build.sh"
+                sh "./scripts/build.sh"
+            }
+        }
+        stage('Prepare YAML') {
+            steps {
+                sh "chmod 777 ./scripts/prepare_yaml.sh"
+                sh "./scripts/prepare_yaml.sh"
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                sh "chmod 777 ./scripts/push_ecr.sh"
+                sh "./scripts/push_ecr.sh"
+            }
+        }
+        stage('Save to S3') {
+            when {
+                expression {
+                    params.pushToS3  == true || params.dockerHub  == true
+                }
+            }
+            steps {
+                sh "chmod 777 ./scripts/push_s3.sh"
+                sh "./scripts/push_s3.sh"
+            }
+        }
+        stage('Deploy') {
+            when {
+                expression {
+                    params.deploy == true
+                }
+            }
+            steps {
+                sh "chmod 777 ./scripts/deploy.sh"
+                sh "./scripts/deploy.sh"
+            }
+        }
+        stage('Push to Docker Hub') {
+            when {
+                expression {
+                    params.dockerHub  == true
+                }
+            }
+            steps {
+                sh "chmod 777 ./scripts/push_hub.sh"
+                sh "./scripts/push_hub.sh"
+            }
+        }
+        stage('Clean Up') {
+            steps {
+                sh "chmod 777 ./scripts/cleanup.sh"
+                sh "./scripts/cleanup.sh"
+            }
+        }
+    }
+}
