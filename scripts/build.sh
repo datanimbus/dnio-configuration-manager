@@ -6,21 +6,21 @@ TAG=`cat CURRENT_CM`
 
 
 echo "****************************************************"
-echo "data.stack:cm :: Building Workflow Base using TAG :: $TAG"
+echo "data.stack:cm :: Building Process Flow Base Image using TAG :: $TAG"
 echo "****************************************************"
 
-cd $WORKSPACE/ds-pf-base
+cd $WORKSPACE/dn-flow-base
 
 sed -i.bak s#__image_tag__#$TAG# Dockerfile
 
 if $cleanBuild ; then
-    docker build --no-cache --pull -t data.stack.pf.base:$TAG .
+    docker build --no-cache --pull -t data.stack.flow.base:$TAG .
 else 
-    docker build -t data.stack.pf.base:$TAG .
+    docker build -t data.stack.flow.base:$TAG .
 fi
 
 echo "****************************************************"
-echo "data.stack:cm :: Workflow Base Built using TAG :: $TAG"
+echo "data.stack:cm :: Process Flow Base Image Built using TAG :: $TAG"
 echo "****************************************************"
 
 
