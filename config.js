@@ -57,6 +57,7 @@ function parseBoolean(val) {
 function get(_service) {
     if (isK8sEnv()) {
         if (_service == 'bm') return `http://bm.${DATA_STACK_NAMESPACE}`;
+        if (_service == 'cm') return `http://cm.${DATA_STACK_NAMESPACE}`;
         if (_service == 'common') return `http://common.${DATA_STACK_NAMESPACE}`;
         if (_service == 'gw') return `http://gw.${DATA_STACK_NAMESPACE}`;
         if (_service == 'mon') return `http://mon.${DATA_STACK_NAMESPACE}`;
@@ -65,6 +66,7 @@ function get(_service) {
         if (_service == 'user') return `http://user.${DATA_STACK_NAMESPACE}`;
     } else {
         if (_service == 'bm') return 'http://localhost:10011';
+        if (_service == 'cm') return 'http://localhost:11011';
         if (_service == 'common') return 'http://localhost:3000';
         if (_service == 'gw') return 'http://localhost:9080';
         if (_service == 'mon') return 'http://localhost:10005';
@@ -95,6 +97,7 @@ module.exports = {
     port: process.env.PORT || 11011,
     httpsPort: process.env.HTTPS_PORT || 11443,
     baseUrlBM: get('bm') + '/bm',
+    baseUrlCM: get('cm') + '/cm',
     baseUrlCommon: get('common') + '/common',
     baseUrlGW: get('gw') + '/gw',
     baseUrlMON: get('mon') + '/mon',
