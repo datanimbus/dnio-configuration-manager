@@ -97,6 +97,7 @@ router.put('/:flowId/:id', async (req, res) => {
 	let id = req.params.id;
 	let flowId = req.params.flowId;
 	try {
+		let socket = req.app.get('socket');
 		let payload = JSON.parse(JSON.stringify(req.body));
 
 		logger.info(`[${txnId}] Update Process Flows Activity request received for Flow ID :: ${flowId} :: Activity ID :: ${id}`);
@@ -126,6 +127,16 @@ router.put('/:flowId/:id', async (req, res) => {
 		logger.debug(`[${txnId}] Publishing Event :: ${eventId}`);
 		dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlowActivity', req, doc, null);
 
+
+		socket.emit('activityUpdated', {
+			_id: id,
+			app: doc.app,
+			url: doc.url,
+			port: doc.port,
+			deploymentName: doc.deploymentName,
+			namespace: doc.namespace,
+			message: 'Updated'
+		});
 
 		return res.status(200).json(status);
 

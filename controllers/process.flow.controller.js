@@ -26,7 +26,7 @@ function mergeCustomizer(objValue, srcValue) {
 router.get('/', async (req, res) => {
 	let txnId = req.get('txnId');
 	try {
-		logger.info(`[${txnId}] Show all Process Flows request received. CountOnly? ${req.query.countOnly}`);
+		logger.info(`[${txnId}] Show all Process Flows request received. CountOnly? ${req.query.countOnly || 'false'}`);
 		logger.debug(`[${txnId}] Query Filters received :: ${JSON.stringify(req.query.filter)}`);
 
 
@@ -72,7 +72,7 @@ router.get('/:id', async (req, res) => {
 	try {
 		let draft = req.query.draft;
 
-		logger.info(`[${txnId}] Show Process Flow request received for ID :: ${id} :: draft? :: ${draft}`);
+		logger.info(`[${txnId}] Show Process Flow request received for ID :: ${id} :: draft? :: ${draft || 'false'}`);
 		logger.debug(`[${txnId}] Query Select options :: ${JSON.stringify(req.query.select)}`)
 
 		if (draft) {

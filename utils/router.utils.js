@@ -36,7 +36,7 @@ async function initRouterMap() {
 			}
 		});
 
-		logger.info(`Active Data Pipes count :: ${global.activeFlows.length}`);
+		logger.info(`Active Data Pipes count :: ${global.activeFlows.length || 0}`);
 		logger.trace(`Active Data Pipes :: ${JSON.stringify(global.activeFlows)}`);
 		
 	} catch (err) {
@@ -71,7 +71,7 @@ async function initProcessFlowRouterMap() {
 			}
 		});
 
-		logger.info(`Active Process Flows count :: ${global.activeProcessFlows.length}`);
+		logger.info(`Active Process Flows count :: ${global.activeProcessFlows.length || 0}`);
 		logger.trace(`Active Process Flows :: ${JSON.stringify(global.activeProcessFlows)}`);
 
 	} catch (err) {

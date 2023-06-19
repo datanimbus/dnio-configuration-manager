@@ -291,7 +291,7 @@ router.put('/:id/deploy', async (req, res) => {
 		dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-		socket.emit('processflowStatus', {
+		socket.emit('processFlowStatus', {
 			_id: id,
 			app: doc.app,
 			url: doc.url,
@@ -373,7 +373,7 @@ router.put('/:id/repair', async (req, res) => {
 		dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-        socket.emit('processflowStatus', {
+        socket.emit('processFlowStatus', {
 			_id: id,
 			app: doc.app,
 			url: doc.url,
@@ -457,7 +457,7 @@ router.put('/:id/start', async (req, res) => {
 		dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-		socket.emit('processflowStatus', {
+		socket.emit('processFlowStatus', {
 			_id: id,
 			app: doc.app,
 			url: doc.url,
@@ -541,7 +541,7 @@ router.put('/:id/stop', async (req, res) => {
 		dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-		socket.emit('processflowStatus', {
+		socket.emit('processFlowStatus', {
 			_id: id,
 			app: doc.app,
 			url: doc.url,
@@ -619,7 +619,7 @@ router.put('/startAll', async (req, res) => {
 			dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-			socket.emit('processflowStatus', {
+			socket.emit('processFlowStatus', {
 				_id: doc._id,
 				app: app,
 				url: doc.url,
@@ -701,7 +701,7 @@ router.put('/stopAll', async (req, res) => {
 			dataStackUtils.eventsUtil.publishEvent(eventId, 'processFlow', req, doc, null);
 
 
-			socket.emit('processflowStatus', {
+			socket.emit('processFlowStatus', {
 				_id: doc._id,
 				app: app,
 				url: doc.url,

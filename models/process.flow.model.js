@@ -55,7 +55,7 @@ schema.pre('save', function (next) {
 		// 	this.isBinary = true;
 		// }
 		if (!this.deploymentName) {
-			this.deploymentName = 'b2b-' + _.camelCase(this.name).toLowerCase();
+			this.deploymentName = 'pf-' + _.camelCase(this.name).toLowerCase();
 		}
 		if (!this.namespace) {
 			this.namespace = (config.DATA_STACK_NAMESPACE + '-' + this.app).toLowerCase();
@@ -84,7 +84,7 @@ draftSchema.pre('save', function (next) {
 		// }
 		
 		if (!this.deploymentName) {
-			this.deploymentName = 'b2b-' + _.camelCase(this.name).toLowerCase();
+			this.deploymentName = 'pf-' + _.camelCase(this.name).toLowerCase();
 		}
 		if (!this.namespace) {
 			this.namespace = (config.DATA_STACK_NAMESPACE + '-' + this.app).toLowerCase();
@@ -136,10 +136,10 @@ draftSchema.pre('save', function (next) {
 });
 
 
-schema.pre('save', mongooseUtils.generateId('PF', 'process.flow', null, 4, 1000));
+schema.pre('save', mongooseUtils.generateId('PF', 'process.flows', null, 4, 1000));
 
 
-schema.pre('save', dataStackUtils.auditTrail.getAuditPreSaveHook('process.flow'));
+schema.pre('save', dataStackUtils.auditTrail.getAuditPreSaveHook('process.flows'));
 
 
 schema.post('save', function (error, doc, next) {
@@ -154,7 +154,7 @@ schema.post('save', function (error, doc, next) {
 });
 
 
-schema.post('save', dataStackUtils.auditTrail.getAuditPostSaveHook('process.flow.audit', client, 'auditQueue'));
+schema.post('save', dataStackUtils.auditTrail.getAuditPostSaveHook('process.flows.audit', client, 'auditQueue'));
 
 
 schema.post('save', function (doc) {
@@ -162,9 +162,9 @@ schema.post('save', function (doc) {
 		doc._req = {};
 	}
 	if (doc._isNew) {
-		dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_CREATE', 'process.flow', doc._req, doc);
+		dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_CREATE', 'processFlow', doc._req, doc);
 	} else {
-		dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_UPDATE', 'process.flow', doc._req, doc);
+		dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_UPDATE', 'processFlow', doc._req, doc);
 	}
 });
 
@@ -172,14 +172,14 @@ schema.post('save', function (doc) {
 schema.pre('remove', dataStackUtils.auditTrail.getAuditPreRemoveHook());
 
 
-schema.post('remove', dataStackUtils.auditTrail.getAuditPostRemoveHook('process.flow.audit', client, 'auditQueue'));
+schema.post('remove', dataStackUtils.auditTrail.getAuditPostRemoveHook('process.flows.audit', client, 'auditQueue'));
 
 
 schema.post('remove', function (doc) {
 	if (!doc._req) {
 		doc._req = {};
 	}
-	dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_DELETE', 'processflow', doc._req, doc);
+	dataStackUtils.eventsUtil.publishEvent('EVENT_PROCESS_FLOW_DELETE', 'processFlow', doc._req, doc);
 });
 
 

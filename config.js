@@ -20,6 +20,13 @@ global.logger = logger;
 const DATA_STACK_NAMESPACE = process.env.DATA_STACK_NAMESPACE || 'appveen';
 
 
+logger.info(`LOG_LEVEL :: ${LOG_LEVEL}`);
+logger.info(`LOGGER_NAME :: ${LOGGER_NAME}`);
+logger.info(`DATA_STACK_NAMESPACE :: ${DATA_STACK_NAMESPACE}`);
+logger.info(`KUBERNETES_SERVICE_HOST :: ${process.env.KUBERNETES_SERVICE_HOST}`);
+logger.info(`KUBERNETES_SERVICE_PORT :: ${process.env.KUBERNETES_SERVICE_PORT}`);
+
+
 if (process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT) {
     dataStackUtils.kubeutil.check()
         .then(

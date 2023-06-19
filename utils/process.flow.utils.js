@@ -22,6 +22,8 @@ async function createActivity(req, options) {
 	let txnId = req.get('txnId');
 	const flowId = options.flowId;
 	try {
+		let socket = req.app.get('socket');
+		
 		logger.info(`[${txnId}] Creating Process Flow Activity for Flow ID :: ${flowId}`)
 		
 
@@ -51,6 +53,17 @@ async function createActivity(req, options) {
 
 		doc._req = req;
 		const status = await doc.save();
+
+
+		socket.emit('activityCreated', {
+			_id: id,
+			app: doc.app,
+			url: doc.url,
+			port: doc.port,
+			deploymentName: doc.deploymentName,
+			namespace: doc.namespace,
+			message: 'Created'
+		});
 		
 		
 		logger.info(`Activity Created for [${req.headers['data-stack-txn-id']}] [${req.headers['data-stack-remote-txn-id']}]`);

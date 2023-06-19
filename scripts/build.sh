@@ -118,7 +118,7 @@ echo "****************************************************"
 #     echo "****************************************************"
 # fi
 
-# cd $WORKSPACE
+cd $WORKSPACE
 
 # LATEST_AGENT=`cat LATEST_AGENT`
 # LATEST_AGENT_WATCHER=`cat LATEST_AGENT_WATCHER`
