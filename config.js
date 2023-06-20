@@ -1,6 +1,8 @@
 const log4js = require('log4js');
-let version = require('./package.json').version;
+
 const dataStackUtils = require('@appveen/data.stack-utils');
+
+let version = require('./package.json').version;
 
 
 const LOG_LEVEL = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info';
@@ -22,6 +24,7 @@ const DATA_STACK_NAMESPACE = process.env.DATA_STACK_NAMESPACE || 'appveen';
 
 logger.info(`LOG_LEVEL :: ${LOG_LEVEL}`);
 logger.info(`LOGGER_NAME :: ${LOGGER_NAME}`);
+logger.info(`NODE_ENV :: ${process.env.NODE_ENV}`);
 logger.info(`DATA_STACK_NAMESPACE :: ${DATA_STACK_NAMESPACE}`);
 logger.info(`KUBERNETES_SERVICE_HOST :: ${process.env.KUBERNETES_SERVICE_HOST}`);
 logger.info(`KUBERNETES_SERVICE_PORT :: ${process.env.KUBERNETES_SERVICE_PORT}`);

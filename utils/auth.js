@@ -557,9 +557,9 @@ function canAccessPath(req) {
 
 	
 	// Process Flows Nodes
-	if (compareURL('/{app}/processflow/node', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPFN', 'PMPFN'], comparator).length > 0) {
+	if (compareURL('/{app}/processflow/node', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPN', 'PMPN'], comparator).length > 0) {
 		if (req.method === 'POST') {
-			if (_.intersectionWith(req.user.appPermissions, ['PMPFN'], comparator).length > 0) {
+			if (_.intersectionWith(req.user.appPermissions, ['PMPN'], comparator).length > 0) {
 				return true;
 			}
 			return false;
@@ -567,9 +567,9 @@ function canAccessPath(req) {
 		return true;
 	}
 
-	if (compareURL('/{app}/processflow/node/{id}', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPFN', 'PMPFN'], comparator).length > 0) {
+	if (compareURL('/{app}/processflow/node/{id}', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPN', 'PMPN'], comparator).length > 0) {
 		if (req.method === 'PUT' || req.method === 'DELETE') {
-			if (_.intersectionWith(req.user.appPermissions, ['PMPFN'], comparator).length > 0) {
+			if (_.intersectionWith(req.user.appPermissions, ['PMPN'], comparator).length > 0) {
 				return true;
 			}
 			return false;
@@ -577,7 +577,7 @@ function canAccessPath(req) {
 		return true;
 	}
 
-	if (compareURL('/{app}/processflow/node/utils/count', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPFN', 'PMPFN'], comparator).length > 0) {
+	if (compareURL('/{app}/processflow/node/utils/count', req.path) && _.intersectionWith(req.user.appPermissions, ['PVPN', 'PMPN'], comparator).length > 0) {
 		return true;
 	}
 	
