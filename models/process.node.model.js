@@ -4,7 +4,7 @@ const dataStackUtils = require('@appveen/data.stack-utils');
 
 const queue = require('../queue');
 const mongooseUtils = require('../utils/mongoose.utils');
-const definition = require('../schemas/custom-node.schema').definition;
+const definition = require('../schemas/process.node.schema').definition;
 
 
 let logger = global.logger;
@@ -19,7 +19,7 @@ schema.plugin(mongooseUtils.metadataPlugin());
 
 
 schema.index({ name: 1, app: 1 }, { unique: true, sparse: true, collation: { locale: 'en_US', strength: 2 } });
-schema.index({ type: 1, category: 1 }, { unique: true, sparse: true });
+// schema.index({ type: 1, category: 1 }, { unique: true, sparse: true });
 
 
 schema.pre('save', function (next) {
@@ -31,7 +31,7 @@ schema.pre('save', function (next) {
 	}
 	if (!this.name) return next(new Error('Node name is required'));
 	if (!this.type) return next(new Error('Node Type is required'));
-	if (!this.category) return next(new Error('Node Category is required'));
+	// if (!this.category) return next(new Error('Node Category is required'));
 	if (this.name && this.name.length > 24) return next(new Error('Node name cannot be more than 24 characters'));
 	if (this.name && regex.test(this.name)) return next();
 	return next(new Error('Node name can contain alphanumeric characters with spaces, dashes and underscores only'));
