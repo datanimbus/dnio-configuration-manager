@@ -56,8 +56,8 @@ router.use('/:app/interaction', paramParser, require('./interaction.controller')
 router.use('/:app/processflow', paramParser, require('./process.flow.controller'));
 router.use('/:app/processflow/utils', paramParser, require('./process.flow.utils.controller'));
 router.use('/:app/processflow/activities', paramParser, require('./process.activities.controller'));
-router.use('/:app/processflow/node', paramParser, require('./process.node.controller'));
-router.use('/:app/processflow/node/utils', paramParser, require('./process.node.utils.controller'));
+router.use('/:app/processnode', paramParser, require('./process.node.controller'));
+router.use('/:app/processnode/utils', paramParser, require('./process.node.utils.controller'));
 
 router.use('/internal', require('./internal.controller'));
 router.use('/internal/health', require('./health.controller'));

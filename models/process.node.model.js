@@ -25,7 +25,6 @@ schema.index({ name: 1, app: 1 }, { unique: true, sparse: true, collation: { loc
 schema.pre('save', function (next) {
 	let regex = /^[a-zA-Z0-9_\s\-\\.]*$/;
 	this._isNew = this.isNew;
-	this.app = 'admin';
 	if (!this.params) {
 		this.params = [];
 	}
