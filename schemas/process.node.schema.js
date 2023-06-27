@@ -21,28 +21,35 @@ const definition = {
 	'type': {
 		'type': 'String'
 	},
-	'category': {
-		'type': 'String'
-	},
-	'code': {
-		'type': 'String'
-	},
-	'params': [
+	'dataStructure': [
 		{
-			'dataType': {
-				'type': 'String'
-			},
-			'htmlType': {
-				'type': 'String'
-			},
-			'label': {
-				'type': 'String'
-			},
-			'key': {
+			'id': {
 				'type': 'String'
 			}
 		}
-	]
+	],
+	'api': {
+		'method': {
+			'type': 'String'
+		},
+		'endpoint': {
+			'type': 'String'
+		},
+		'contentType': {
+			'type': 'String'
+		},
+		'timeout': {
+			'type': 'Number',
+			'default': 60000
+		},
+		'retryCount': {
+			'type': 'Number',
+			'default': 5
+		},
+		'retryInterval': {
+			'type': 'Number'
+		},
+	}
 };
 
 
