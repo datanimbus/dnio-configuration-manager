@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const utils = require('@appveen/utils');
 const dataStackUtils = require('@appveen/data.stack-utils');
 
 const queue = require('../queue');
@@ -53,7 +54,7 @@ schema.post('save', function (error, doc, next) {
 	}
 });
 
-schema.pre('save', mongooseUtils.generateId('NODE', 'b2b.nodes', null, 4, 2000));
+schema.pre('save', utils.counter.getIdGenerator('NODE', 'process.nodes', null, null, 1000));
 
 schema.pre('save', dataStackUtils.auditTrail.getAuditPreSaveHook('process.nodes'));
 

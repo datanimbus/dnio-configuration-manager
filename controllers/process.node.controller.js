@@ -178,7 +178,7 @@ router.put('/:id', async (req, res) => {
 
 		socket.emit('processFlowNodeStatus', {
 			_id: id,
-			app: flowData.app,
+			app: payload.app,
 			message: 'Updated'
 		});
 
