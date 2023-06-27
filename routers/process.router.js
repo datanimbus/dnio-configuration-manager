@@ -25,19 +25,25 @@ router.use('/:app/:api(*)?', async (req, res, next) => {
 			return res.status(400).json({ message: `No Process Flows with path ${path} Found.` });
 		}
 		
-		const headers = JSON.parse(JSON.stringify(req.headers));
-		let txnId = uuid().split('-');
 		
-		headers['data-stack-txn-id'] = `${txnId[1]}${txnId[2]}`;
+		let txnId = uuid().split('-');
+		let txnHeaders = {};
+		
+		if (!req.header('data-stack-txn-id')) {
+			txnHeaders['data-stack-txn-id'] = `${txnId[1]}${txnId[2]}`;
+		} else {
+			txnHeaders['data-stack-txn-id'] = req.headers['data-stack-txn-id'];	
+		}
+
 		if (!req.header('data-stack-remote-txn-id')) {
-			headers['data-stack-remote-txn-id'] = uuid();
+			txnHeaders['data-stack-remote-txn-id'] = uuid();
+		} else {
+			txnHeaders['data-stack-remote-txn-id'] = req.headers['data-stack-remote-txn-id'];
 		}
 		
-		delete headers['cookie'];
-		delete headers['host'];
-		delete headers['connection'];
-		delete headers['user-agent'];
-		delete headers['content-length'];
+		txnHeaders['content-type'] = req.headers['content-type'];
+
+		req.headers = txnHeaders;
 
 
 		const routeData = global.activeProcessFlows[path];

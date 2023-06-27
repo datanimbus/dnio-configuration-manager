@@ -56,7 +56,7 @@ async function createActivity(req, options) {
 
 
 		socket.emit('activityCreated', {
-			_id: id,
+			_id: doc._id,
 			app: doc.app,
 			url: doc.url,
 			port: doc.port,

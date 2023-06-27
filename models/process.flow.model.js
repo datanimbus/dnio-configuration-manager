@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
+const utils = require('@appveen/utils');
 const dataStackUtils = require('@appveen/data.stack-utils');
 
 const queue = require('../queue');
@@ -136,7 +137,7 @@ draftSchema.pre('save', function (next) {
 });
 
 
-schema.pre('save', mongooseUtils.generateId('PF', 'process.flows', null, 4, 1000));
+schema.pre('save', utils.counter.getIdGenerator('PF', 'process.flows', null, 4, 1000));
 
 
 schema.pre('save', dataStackUtils.auditTrail.getAuditPreSaveHook('process.flows'));

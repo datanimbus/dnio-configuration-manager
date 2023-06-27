@@ -1,10 +1,9 @@
-const log4js = require('log4js');
 const mongoose = require('mongoose');
 
 const config = require('../config');
 
 
-const logger = log4js.getLogger(global.loggerName);
+const logger = global.logger;
 
 const flowModel = mongoose.model('flow');
 const processflowModel = mongoose.model('process.flows');
@@ -57,21 +56,21 @@ async function initProcessFlowRouterMap() {
 			if (config.isK8sEnv()) {
 				global.activeProcessFlows['/' + item.app + item.inputNode.options.path] = {
 					proxyHost: `http://${item.deploymentName}.${item.namespace}`,
-					proxyPath: '/api/b2b/' + item.app + item.inputNode.options.path,
+					proxyPath: '/api/flows/' + item.app + item.inputNode.options.path,
 					flowId: item._id,
 					skipAuth: item.skipAuth || false
 				};
 			} else {
 				global.activeProcessFlows['/' + item.app + item.inputNode.options.path] = {
-					proxyHost: 'http://localhost:8080',
-					proxyPath: '/api/b2b/' + item.app + item.inputNode.options.path,
+					proxyHost: `http://localhost:${item.port || 31000}`,
+					proxyPath: '/api/flows/' + item.app + item.inputNode.options.path,
 					flowId: item._id,
 					skipAuth: item.skipAuth || false
 				};
 			}
 		});
 
-		logger.info(`Active Process Flows count :: ${global.activeProcessFlows.length || 0}`);
+		logger.info(`Active Process Flows count :: ${Object.keys(global.activeProcessFlows).length || 0}`);
 		logger.trace(`Active Process Flows :: ${JSON.stringify(global.activeProcessFlows)}`);
 
 	} catch (err) {

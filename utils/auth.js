@@ -36,7 +36,7 @@ const internalUrls = [
 	'/{app}/faas/utils/{id}/statusChange',
 	'/{app}/flow/utils/{id}/init',
 	'/{app}/flow/utils/node-library',
-	'/{app}/workflow/utils/{id}/init',
+	'/{app}/processflow/utils/{id}/init',
 ];
 
 const adminOnlyUrls = [
@@ -101,7 +101,7 @@ const commonUrls = [
 	'/{app}/processflow/{id}',
 	'/{app}/processflow/utils/count',
 	'/{app}/processflow/utils/status/count',
-	'/{app}/processflow/utils/{id}/init',     //check
+	// '/{app}/processflow/utils/{id}/init',     //check
 	'/{app}/processflow/utils/{id}/deploy',
 	'/{app}/processflow/utils/{id}/repair',
 	'/{app}/processflow/utils/{id}/start',

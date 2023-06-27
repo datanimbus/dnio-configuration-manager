@@ -5,7 +5,7 @@ const dataStackUtils = require('@appveen/data.stack-utils');
 let version = require('./package.json').version;
 
 
-const LOG_LEVEL = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info';
+const LOG_LEVEL = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'trace';
 const LOGGER_NAME = isK8sEnv() ? `[${process.env.DATA_STACK_NAMESPACE}] [${process.env.HOSTNAME}] [CM ${version}]` : `[CM ${version}]`;
 
 log4js.configure({
