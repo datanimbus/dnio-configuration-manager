@@ -49,6 +49,12 @@ const definition = {
 		'retryInterval': {
 			'type': 'Number'
 		},
+		'headers': {
+			'type': 'Object'
+		},
+		'type': {
+			'type': 'String'
+		}
 	}
 };
 

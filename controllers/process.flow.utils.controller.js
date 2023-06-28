@@ -799,10 +799,10 @@ router.put('/:id/draftDelete', async (req, res) => {
 
 router.get('/:id/yamls', async (req, res) => {
 	try {
-		const doc = await flowModel.findById(req.params.id);
+		const doc = await processflowModel.findById(req.params.id);
 
 		const namespace = (config.DATA_STACK_NAMESPACE + '-' + doc.app).toLowerCase();
-		const port = doc.port || 8080;
+		const port = doc.port || 31000;
 		const name = doc.deploymentName;
 		const envKeys = [
 			'FQDN', 
