@@ -19,12 +19,8 @@ const client = queue.getClient();
 dataStackUtils.eventsUtil.setNatsClient(client);
 
 
-const schema = mongooseUtils.MakeSchema(definition, {
-	versionKey: 'version'
-});
-const draftSchema = mongooseUtils.MakeSchema(draftDefinition, {
-	versionKey: 'version'
-});
+const schema = mongooseUtils.MakeSchema(definition);
+const draftSchema = mongooseUtils.MakeSchema(draftDefinition);
 
 
 schema.index({ name: 1, app: 1 }, { unique: true, sparse: true, collation: { locale: 'en_US', strength: 2 } });
@@ -36,22 +32,22 @@ draftSchema.plugin(mongooseUtils.metadataPlugin());
 
 
 schema.pre('save', function (next) {
-	// if (!this.inputNode || !this.inputNode.type) {
-	// 	return next(new Error('Input Node is Mandatory'));
-	// }
+	if (!this.inputNode || !this.inputNode.type) {
+		return next(new Error('Input Node is Mandatory'));
+	}
 	if (this.isNew) {
-		// if (!this.inputNode || !this.inputNode.options) {
-		// 	this.inputNode.options = {};
-		// }
-		// if (this.inputNode && this.inputNode.options && this.inputNode.options.path && this.inputNode.options.path.trim()) {
-		// 	this.inputNode.options.path = this.inputNode.options.path.trim();
-		// 	if (this.inputNode.options.path.trim().charAt(0) != '/') {
-		// 		this.inputNode.options.path = '/' + this.inputNode.options.path;
-		// 	}
-		// }
-		// if (!this.inputNode.options.path || !this.inputNode.options.path.trim()) {
-		// 	this.inputNode.options.path = '/' + _.camelCase(this.name);
-		// }
+		if (!this.inputNode || !this.inputNode.options) {
+			this.inputNode.options = {};
+		}
+		if (this.inputNode && this.inputNode.options && this.inputNode.options.path && this.inputNode.options.path.trim()) {
+			this.inputNode.options.path = this.inputNode.options.path.trim();
+			if (this.inputNode.options.path.trim().charAt(0) != '/') {
+				this.inputNode.options.path = '/' + this.inputNode.options.path;
+			}
+		}
+		if (!this.inputNode.options.path || !this.inputNode.options.path.trim()) {
+			this.inputNode.options.path = '/' + _.camelCase(this.name);
+		}
 		// if (this.nodes && this.nodes.length == 1 && this.inputNode.type == 'FILE' && this.nodes[0].type == 'FILE') {
 		// 	this.isBinary = true;
 		// }
@@ -67,22 +63,22 @@ schema.pre('save', function (next) {
 });
 
 draftSchema.pre('save', function (next) {
-	// if (!this.inputNode || !this.inputNode.type) {
-	// 	return next(new Error('Input Node is Mandatory'));
-	// }
+	if (!this.inputNode || !this.inputNode.type) {
+		return next(new Error('Input Node is Mandatory'));
+	}
 	if (this.isNew) {
-		// if (!this.inputNode || !this.inputNode.options) {
-		// 	this.inputNode.options = {};
-		// }
-		// if (this.inputNode && this.inputNode.options && this.inputNode.options.path && this.inputNode.options.path.trim()) {
-		// 	this.inputNode.options.path = this.inputNode.options.path.trim();
-		// 	if (this.inputNode.options.path.trim().charAt(0) != '/') {
-		// 		this.inputNode.options.path = '/' + this.inputNode.options.path;
-		// 	}
-		// }
-		// if (!this.inputNode.options.path || !this.inputNode.options.path.trim()) {
-		// 	this.inputNode.options.path = '/' + _.camelCase(this.name);
-		// }
+		if (!this.inputNode || !this.inputNode.options) {
+			this.inputNode.options = {};
+		}
+		if (this.inputNode && this.inputNode.options && this.inputNode.options.path && this.inputNode.options.path.trim()) {
+			this.inputNode.options.path = this.inputNode.options.path.trim();
+			if (this.inputNode.options.path.trim().charAt(0) != '/') {
+				this.inputNode.options.path = '/' + this.inputNode.options.path;
+			}
+		}
+		if (!this.inputNode.options.path || !this.inputNode.options.path.trim()) {
+			this.inputNode.options.path = '/' + _.camelCase(this.name);
+		}
 		
 		if (!this.deploymentName) {
 			this.deploymentName = 'pf-' + _.camelCase(this.name).toLowerCase();

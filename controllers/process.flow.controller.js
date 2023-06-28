@@ -255,6 +255,7 @@ router.put('/:id', async (req, res) => {
 			doc.markModified('inputNode');
 			doc.markModified('nodes');
 			doc.markModified('dataStructures');
+			doc.version = doc.version + 1;
 
 			status = await doc.save();
 
