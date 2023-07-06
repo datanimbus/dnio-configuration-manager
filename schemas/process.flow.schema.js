@@ -53,7 +53,9 @@ const definition = {
 	'description': {
 		'type': 'String'
 	},
-	
+	'dataStructures': {
+		'type': 'Object'
+	}
 };
 
 

@@ -19,7 +19,7 @@ const definition = {
 	},
 	'status': {                          //Internal
 		'type': 'String',
-		'enum': ['PENDING', 'ERROR', 'SUCCESS', 'UNKNOWN'],
+		'enum': ['PENDING', 'ERROR', 'FAILED', 'SUCCESS', 'UNKNOWN'],
 		'default': 'PENDING'
 	},
 	'payloadMetaData': {

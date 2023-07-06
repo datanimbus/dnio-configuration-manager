@@ -240,7 +240,7 @@ function getUrlParams(tempUrl, url) {
 			values[_k] = urlSegment[i];
 		}
 	});
-	logger.trace(`Params Map :: ${values}`);
+	logger.trace(`Params Map :: ${JSON.stringify(values)}`);
 	return values;
 }
 
