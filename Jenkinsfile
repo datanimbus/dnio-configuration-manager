@@ -20,13 +20,13 @@ pipeline {
         }
         stage('SCM') {
             steps {
-                git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/dn-configuration-manager.git'
+                git branch: "$BRANCH_NAME", url: 'https://github.com/datanimbus/dnio-configuration-manager.git'
             }
         }
         stage('SCM Process Flow Base Image') {
             steps {
                 dir('dn-flow-base') {
-                  git branch: "$BRANCH_NAME", url: 'https://github.com/appveen/dn-flow-base.git'
+                  git branch: "$BRANCH_NAME", url: 'https://github.com/datanimbus/dnio-flow-base.git'
                 }
             }
         }
