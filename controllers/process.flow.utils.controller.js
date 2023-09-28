@@ -175,10 +175,9 @@ router.put('/:id/deploy', async (req, res) => {
 
 		let user = req.user;
 		let isSuperAdmin = user.isSuperAdmin;
-		let verifyDeploymentUser = config.verifyDeploymentUser;
 
 
-		logger.debug(`[${txnId}] Requesting User :: ${JSON.stringify({ user, isSuperAdmin, verifyDeploymentUser })}`);
+		logger.debug(`[${txnId}] Requesting User :: ${JSON.stringify({ user, isSuperAdmin })}`);
 
 
 		const doc = await processflowModel.findById(id);
@@ -209,7 +208,7 @@ router.put('/:id/deploy', async (req, res) => {
 		} else if (doc.status === 'Draft') {
 			logger.debug(`[${txnId}] Process Flow is in Draft status`);
 
-			if (verifyDeploymentUser && !isSuperAdmin && doc._metadata && doc._metadata.lastUpdatedBy == user) {
+			if (!isSuperAdmin && doc._metadata && doc._metadata.lastUpdatedBy == user) {
 				logger.info(`[${txnId}] Self deployment not allowed ::  ${JSON.stringify({ lastUpdatedBy: doc._metadata.lastUpdatedBy, currentUser: user })}`);
 
 				return res.status(403).json({ message: 'You cannot deploy your own changes' });
@@ -229,7 +228,7 @@ router.put('/:id/deploy', async (req, res) => {
 			logger.trace(`[${txnId}] Process Flow draft data :: ${JSON.stringify(draftDoc)}`);
 
 
-			if (verifyDeploymentUser && !isSuperAdmin && draftDoc._metadata && draftDoc._metadata.lastUpdatedBy == user) {
+			if (!isSuperAdmin && draftDoc._metadata && draftDoc._metadata.lastUpdatedBy == user) {
 				logger.info(`[${txnId}] Self deployment not allowed :: ${{ lastUpdatedBy: draftDoc._metadata.lastUpdatedBy, currentUser: user }}`);
 
 				return res.status(400).json({ message: 'You cannot deploy your own changes' });
