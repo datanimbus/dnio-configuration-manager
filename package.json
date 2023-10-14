@@ -1,6 +1,6 @@
 {
   "name": "dn-configuration-manager",
-  "version": "2.7.6",
+  "version": "2.8.0",
   "description": "Configuration manager",
   "main": "app.js",
   "scripts": {
