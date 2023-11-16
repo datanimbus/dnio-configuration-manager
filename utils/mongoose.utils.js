@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const config = require('../config');
 
 
 function MakeSchema(definition, options) {
@@ -97,7 +98,7 @@ function metadataPlugin() {
 				self._metadata.version = {};
 			}
 			if (self._metadata.version) {
-				self._metadata.version.release = process.env.RELEASE || 'dev';
+				self._metadata.version.release = config.release || 'dev';
 			}
 			if (!self._metadata.version.document) {
 				self._metadata.version.document = 0;
