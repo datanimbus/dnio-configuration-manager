@@ -9,7 +9,7 @@ RUN apk upgrade
 
 RUN set -ex; apk add --no-cache --virtual .fetch-deps curl tar ;
 
-WORKDIR /app
+WORKDIR /tmp/app
 
 COPY package.json package.json
 
@@ -32,6 +32,6 @@ ENV NODE_ENV='production'
 EXPOSE 11011
 EXPOSE 11443
 
-# RUN chmod -R 777 /app
+RUN chmod -R 777 /tmp/app
 
 CMD [ "node", "app.js" ]
